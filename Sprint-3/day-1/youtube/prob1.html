@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    #search_results {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 1%;
+
+      justify-content: space-between;
+      margin-top: 5px;
+    }
+   
+    .navcon{
+        height: 70px;
+        display: flex;
+        margin: 0px;
+        
+    }
+   
+    .nav{
+        width: 33%;
+        height: 70px;
+        
+    }
+    img{
+        height: 45px;
+    }
+    #mid{
+        height: 36px;
+        
+    }
+    .mid2{
+        margin-top: 5px;
+        margin-right: 20px;
+    }
+    .midle{
+        display: flex;
+        justify-content: space-around;
+    }
+    .btn{
+       height: 41px;
+       border-top:1px solid black;
+       border-right:1px solid black;
+       border-bottom:1px solid black;  
+       border-left: none; 
+       margin-left: 0px; 
+    }
+    .btn:hover{
+        cursor: pointer;
+    }
+    #search{
+        height: 36px;
+        width: 90%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .mid1{
+        display: flex;
+        width: 85%;
+        justify-content: space-between;
+    }
+    .right{
+        display: flex;
+        justify-content: right;
+    }
+    .right > img{
+        margin-right: 25px;
+    }
+    .btn>img{
+        height: 33px;
+    }
+    .dataimg{
+        height: 250px;
+        width: 100%;
+    }
+    @media only screen and (min-width:320px) and (max-width:600px){
+      #search_results {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 5px;
+    }
+    
+    }
+    @media only screen and (min-width:0px) and (max-width:320px){
+      #search_results {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 2px;
+    }
+    
+    }
+  </style>
+
+  <body>
+   
+    <div class="navcon">
+        <div class="left nav">
+            <img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/24/000000/external-mobile-application-hamburger-menu-setting-interface-basic-filled-tal-revivo.png"/>
+            <img src="https://cdn.mos.cms.futurecdn.net/8gzcr6RpGStvZFA2qRt4v6.jpg" alt="">
+        </div>
+        <div class="midle nav">
+               <div class="mid1">
+                <input type="text" id="search" placeholder="Search">
+                <button class="btn" onclick="searchVideos()"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKLKAYgquq7OZi51PIQC6RBi5LmaxNDJmodtYBqIgdG6GL-bpG" alt=""></button>
+               </div>
+                <div class="mid2">
+                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSUvtmfqvxMKyEpuv0kmW1b1SAQrzQnRaGafF7sySESVGrtCsHa" alt="" id="mid">
+                </div>
+               
+        </div>
+        <div class="right nav">
+            <img src="https://img.icons8.com/material-outlined/24/000000/video-call.png"/>
+            <img src="https://cdn4.iconfinder.com/data/icons/materia-database-vol-2/24/037_029_matrix_database_table_sheet-512.png" alt="">
+            <img src="https://cdn.icon-icons.com/icons2/2091/PNG/512/bell_icon_128467.png" alt="">
+
+            
+        </div>
+    </div>
+    
+
+    <div id="search_results"></div>
+  </body>
+</html>
+<script>
+     //
+  //https://youtube.googleapis.com/youtube/v3/search?q=tesla&key=[YOUR_API_KEY]
+
+  let API = "AIzaSyDwSHXbhfA4WR-oX8Xl8WDzr_rdzbE-_Gg";
+  //AIzaSyDwSHXbhfA4WR-oX8Xl8WDzr_rdzbE-_Gg
+
+let search_results_div = document.getElementById("search_results");
+
+async function searchVideos() {
+  try {
+    let inp = document.getElementById("search").value;
+
+    let res = await fetch(
+      `https://youtube.googleapis.com/youtube/v3/search?q=${inp}&key=${API}&type=video&maxResults=30&part=snippet`
+    );
+
+    let data = await res.json();
+    console.log("data:", data);
+
+    let array_of_videos = data.items;
+
+    appendVideos(array_of_videos);
+  } catch (err) {
+    console.log("err:", err);
+  }
+}
+
+const appendVideos = (arr) => {
+
+arr.forEach((el) => {
+    let div = document.createElement("div");
+    let img1 = document.createElement("img");
+    img1.setAttribute("src",el.snippet.thumbnails.default.url)
+    img1.setAttribute("class","dataimg");
+    let h4 = document.createElement("h4");
+    h4.innerHTML = el.snippet.title;
+    div.append(img1,h4)
+    div.onclick=(data)=>{
+        window.location.href = "video.html";
+        let video = el.id.videoId
+        console.log("defavideo",video)
+        localStorage.setItem("video",JSON.stringify(video));
+    }
+    search_results_div.append(div);
+});
+}
+
+</script>

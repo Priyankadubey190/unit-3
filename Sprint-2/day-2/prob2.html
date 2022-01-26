@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        h2{
+          text-align: center;
+        }
+        #container{
+          width:60%;
+          margin: auto;
+        }
+        #display{
+          width: 50%;
+          margin: auto;
+        }
+        img{
+            width:300px;
+            height: 300px;
+            border: 1px solid black;
+
+        }
+        .ord{
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+   <h2>Restorent</h2>
+   <div id="container">
+       <label for="">French Toast</label>
+       <input type="checkbox" value="Toast" id="toe" name="food">
+
+       <label for="">Pasta</label>
+       <input type="checkbox" value="Pasta" id="pas" name="food">
+       
+       <label for="">Bread</label>
+       <input type="checkbox" value="Bread" id="bre" name="food">
+       
+       <label for="">Burger</label>
+       <input type="checkbox" value="Burger" id="bur" name="food">
+       
+       <label for="">Icecream </label>
+       <input type="checkbox" value="ice" id="ice" name="food">
+       
+       <button id="order">Order Food</button>
+       
+       
+
+   </div>
+   <div id="display"></div>
+   
+    
+</body>
+</html>
+<script>
+  let x= document.getElementById("order").addEventListener("click",myfood);
+  
+
+  let a="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+  let b="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+  let c="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+  let d="https://images.unsplash.com/photo-1481070555726-e2fe8357725c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mjd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+  let e="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MjF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+  function myfood(){
+
+      document.querySelector("#display").innerHTML="";
+      let id=Math.ceil(Math.random()*60);
+
+      let checkboxes=document.getElementsByName('food');
+      for(let i=0;i<checkboxes.length;i++){
+       var s=checkboxes[i].checked == true; 
+
+        let foodPromise = new Promise(function(resolve, reject){
+          
+           if(s==true){
+            resolve("yes");
+           } 
+          else{
+            reject("No");
+          }
+          
+       })
+        
+       foodPromise.then(function (res){
+          console.log(res);
+          setTimeout(function(){
+            if(checkboxes[i].checked == true){
+              console.log(checkboxes[i].value);
+
+              if(checkboxes[i].value=="Toast"){
+                let img=document.createElement("img");
+                img.src=a;
+                document.querySelector("#display").append(img)
+              }
+              if(checkboxes[i].value=="Pasta"){
+                let img=document.createElement("img");
+                img.src=b;
+                document.querySelector("#display").append(img)
+              }
+              if(checkboxes[i].value=="Bread"){
+                let img=document.createElement("img");
+                img.src=c;
+                document.querySelector("#display").append(img)
+              }
+              if(checkboxes[i].value=="Burger"){
+                let img=document.createElement("img");
+                img.src=d;
+                document.querySelector("#display").append(img)
+              }
+              if(checkboxes[i].value=="ice"){
+                let img=document.createElement("img");
+                img.src=e;
+                document.querySelector("#display").append(img)
+              }
+            }
+          },5000)
+          
+
+
+       })
+       foodPromise.catch(function (er){
+           console.log(er);
+       })
+
+       
+         
+      }
+      setTimeout(function(){
+            
+            let orderid=document.createElement("h4")
+            orderid.setAttribute("class","ord");
+              orderid.textContent="Order Id -"+id;
+               document.querySelector("#display").append(orderid);
+        },5000)
+  }
+
+
+
+
+
+</script>

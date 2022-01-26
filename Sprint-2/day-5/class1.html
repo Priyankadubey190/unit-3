@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #movies {
+            height: 200px;
+            width: 300px;
+            border: 1px solid black;
+            overflow: scroll;
+
+        }
+
+        img {
+            width: 60px;
+            height: 60px;
+        }
+
+        input {
+            width: 200px;
+        }
+
+        #box1 {
+            display: flex;
+        }
+
+        #pos {
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <input oninput="debounce(searchmovie, 300)" type="text" id="movie">
+
+    <div id="movies"></div>
+    <div id="container"></div>
+</body>
+
+</html>
+<script>
+    // two types of people 
+
+    let movie_waiting;
+    async function searchmovie() {
+        try {
+            let movie = document.getElementById("movie").value;
+
+            if (movie.length <= 2) { // if you are typing two letters don't make request 
+                return false;
+            }
+            let res = await fetch(`http://www.omdbapi.com/?apikey=12784a6d&s=${movie}`);
+
+            let data = await res.json();
+
+            let movies_arr = data.Search;
+            console.log("data", data);
+            appendMovies(movies_arr);
+        }
+        catch (err) {
+            console.log("error", err);
+        }
+
+    }
+
+    let movies_div = document.getElementById("movies");
+
+
+    function appendMovies(arr) {
+        movies_div.innerHTML = "";
+
+        if (arr === undefined) { // done this because we don't to run this when the arr is undfined means too much data 
+            return false;
+        }
+        arr.forEach(function (ele) {
+
+            let div1 = document.createElement("div");
+            div1.setAttribute("id", "box1");
+            div1.onclick = function () {
+
+                get(ele.Title);
+            }
+            let poster = document.createElement("div");
+            let img = document.createElement("img");
+            img.src = ele.Poster;
+            let nam = document.createElement("div");
+            let p = document.createElement("p");
+            p.innerText = ele.Title;
+            nam.append(p);
+            poster.append(img);
+            div1.append(poster, nam)
+            movies_div.append(div1);
+        })
+    }
+
+    function debounce(funk, delay) {
+
+        if (movie_waiting) {
+
+            clearTimeout(movie_waiting);
+        }
+        // above step is done because if you it will create 2 time out 
+
+        movie_waiting = setTimeout(function () {
+
+            funk();
+        }, delay);
+
+
+    }
+
+
+    function get(ele) {
+        document.querySelector("#container").innerHTML = "";
+
+        let name = ele;
+
+
+        let key = "12784a6d";
+        let url = `http://www.omdbapi.com/?t=${name}&apikey=${key}`;
+        console.log(url)
+
+        async function getmovie() {
+            try {
+                let mdb = await fetch(url);
+                let res = await mdb.json();
+                //console.log(res) ;
+                if (res.Response == "False") {
+                    let sanket = document.createElement("img");
+                    sanket.src = "https://media1.giphy.com/media/haZOqHKz9tTfW/giphy.webp?cid=ecf05e47fxesk9pqhtuj665mdtsxq969a86wt0fgqasbfaje&rid=giphy.webp&ct=g";
+                    document.querySelector("#container").append(sanket)
+                }
+                else {
+                    if (res.imdbRating > 8.5) {
+                        let x = `<div id="box">
+            <img src="${res.Poster}" id="pos">
+            <h3>(Recommended)</h3>
+            <h2>Title: ${res.Title}</h2>
+            <h3>Actors:${res.Actors}</h3>
+            <h3>IMDb rating:${res.imdbRating}</h3>
+        </div>`;
+
+                        document.querySelector("#container").innerHTML = x;
+                    }
+                    else {
+                        let x = `<div id="box">
+            <img src="${res.Poster}" id="pos">
+            <h2>Title:${res.Title}</h2>
+            <h3>Actors:${res.Actors}</h3>
+            <h3>IMDb rating:${res.imdbRating}</h3>
+        </div>`;
+                        document.querySelector("#container").innerHTML = x;
+
+                    }
+
+                }
+
+            }
+            catch (err) {
+                console.log("This error is come to the ", err)
+            }
+        }
+        getmovie();
+
+    }
+
+</script>

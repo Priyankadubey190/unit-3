@@ -1,0 +1,77 @@
+body{
+    background-color: blue;
+}
+#navbar{
+
+
+    display: flex;
+    background-color: black;
+    color: white;
+}
+
+#logo img{
+
+    width: 40%;
+    padding: 9px;
+}
+
+#profile-img{
+
+width: 50%;
+border-radius: 50%;
+height: 40px;
+
+}
+
+#list li{
+
+    display: inline;
+    margin-right: 2%;
+}
+#search{
+
+    width: 10%;
+    padding: 12px;
+}
+
+#logo{
+
+    width: 5%;
+    text-align: right;
+}
+#options{
+
+    width: 75%;
+}
+#profile{
+
+    width: 5%;
+}
+#sigma{
+    display:flex;
+    margin-left: 100px;
+    margin-top: 50px;
+}
+#sec{
+    margin-left: 40px;
+}
+#repo{
+    margin-left: 100px;
+    margin-top: 50px;
+}
+#styl{
+    box-shadow: rgba(251, 252, 253, 0.4) 0px 0px 0px 2px, rgba(249, 250, 252, 0.65) 0px 4px 6px -1px, rgba(245, 243, 243, 0.08) 0px 1px 0px inset;
+    width:400px;
+    height:25px;
+    text-align: center;
+    border-radius: 8px;
+}
+#repo_btn{
+    background-color:greenyellow;
+    color: black;
+    padding:8px 20px;
+    border-radius: 9px;
+}
+h1{
+    color: white;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         #nav{
+           display: flex;
+           justify-content: right;
+           background-color: tomato;
+       }
+       a {
+            color: black;
+            margin: 10px;
+            margin-right: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+           #login{
+            margin: auto;
+            margin-top: 150px;
+            border:5px solid tomato;
+            width: 25%;
+            height: 400px;
+        }
+        label{
+            margin: 20px ;
+            font-size: 20px;
+        }
+        input{
+            margin: 20px;
+            width: 70%;
+            height: 30px;
+            border-radius: 5px;
+
+        }
+        h2{
+            margin: 20px;
+            font-size: 25px;
+        }
+        button{
+            margin: 20px ;
+            padding: 10px;
+            width: 30%;
+            border-radius: 4px;
+            background-color: black;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+       
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <a href="./home.html">Home</a>
+       <a href="./login.html">Login</a> 
+       <a href="./signup.html">Signup</a>
+   </div>
+    <div id="login">
+        <h2>Log In </h2>
+        <label >Email</label> <br>
+        <input type="email" id="email" placeholder="Please enter the email id "><br>
+        <label >Password</label> <br>
+        <input type="password" id="pass" placeholder="Please enter password "><br>
+        <button onclick="login()">Log In </button>
+        
+    </div>
+</body>
+</html>
+<script>
+    var data = JSON.parse(localStorage.getItem("signdata"));
+    
+    function login(){
+        
+        var useremail=document.querySelector("#email").value;
+        var userpass=document.querySelector("#pass").value;
+        
+        for(var i=0; i<data.length; i++){
+            if(data[i].mail == useremail && data[i].pass== userpass){
+                alert("Log In successfull")
+                window.location="home.html";
+            }
+            else{
+                alert("invalid Credentials");
+            }
+        }
+            
+  
+        
+        
+    }
+</script>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        th,td {
+            border: 3px solid black;
+            padding: 8px;
+        }
+        #right{
+            float: right;
+            
+        }
+    </style>
+   
+</head>
+
+<body>
+       <div id="right"><h2> Number Of Task</h2>
+    <h3 id="num"></h3></div>
+        <label for="">task name</label>
+        <input type="text" id="name" placeholder="write task here">
+
+        <input type="submit" id="task">
+    
+    <button onclick="togel()">Toggle</button>
+
+    <table>
+        <thead>
+            <th>task name</th>
+            <th>task date</th>
+            <th>task status</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+</body>
+
+</html>
+<script>
+    document.querySelector("#task").addEventListener
+        ("click", display);
+    var count =0;
+    function display(ele) {
+        ele.preventDefault();
+        count++;
+        document.querySelector("#num").textContent=count;
+        this.name = document.querySelector("#name").value;
+        this.date = new Date;
+        this.status = "false";
+
+        var row = document.createElement("tr");
+        var td1 = document.createElement("td");
+        td1.textContent = this.name;
+        var td2 = document.createElement("td");
+        td2.textContent = this.date;
+        var td3 = document.createElement("td");
+        td3.textContent = this.status;
+        let td4=document.createElement("td");
+        td4.textContent="Toggle";
+        td4.addEventListener("click",function(){
+        if(td3.textContent=="false"){
+            td3.textContent="true";
+        }
+        else if(td3.textContent=="true"){
+            td3.textContent="false";
+        }
+    })
+       var td5= document.createElement("td");
+        td5.textContent="Done";
+        td5.addEventListener("click", function(){
+            row.style.backgroundColor="green";
+            row.style.textDecoration="line-through";
+        });
+        let td6= document.createElement("td");
+        td6.textContent="Remove";
+        td6.addEventListener("click", function(event){
+        event.target.parentNode.remove();
+        count--;
+        document.querySelector("#num").textContent=count;
+    })
+        row.append(td1, td2, td3,td4,td5,td6)
+        document.querySelector("tbody").append(row);
+        console.log(this.name)
+    }
+    
+</script>

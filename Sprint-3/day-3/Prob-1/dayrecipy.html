@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+
+  
+
+  <body>
+   <div id="nav"></div>
+    
+    <div id="recipyday"></div>
+
+  </body>
+</html>
+<script type="module">
+     import navbar from "./components/navbar.js";
+     import {getData, appendData} from "./script/showData.js";
+     var nav = document.getElementById("nav");
+     nav.innerHTML = navbar();
+let search_results_div = document.getElementById("recipyday");
+
+async function dayrecipy(){
+    search_results_div.innerHTML = null;
+    var inp = document.getElementById("search").value;
+    let response = await getData(`https://www.themealdb.com/api/json/v1/1/random.php`);
+    
+    console.log("response0:",response)
+    response.forEach(({strMeal,strMealThumb}) => {
+        let div = document.createElement("div")
+        let h3 = document.createElement("h3");
+        h3.innerHTML = strMeal
+        let img = document.createElement("img")
+        img.setAttribute("class","food")
+        img.src = strMealThumb
+        div.append(img,h3)
+        search_results_div.append(div)
+    })
+}
+dayrecipy()
+
+
+
+</script>

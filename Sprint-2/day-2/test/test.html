@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Name: <input type="text" id="name" />
+    <button onclick="Register()">Register</button>
+</body>
+</html>
+<script>
+// let myPromise = new Promise(function(resolve,reject){
+//     reject("this error occured, check speeling");
+// });
+
+// //succes vlaue
+// myPromise.then(function(response){
+//     console.log(response)
+// });
+// myPromise.log(function(error){
+//     console.log(error)
+// });
+// example----
+// let passexam = false;
+// let parentPromise = new Promise(function(resolve, reject){
+// setTimeout(function(){
+//     if(passexam){
+//     resolve("bike")
+// }
+// else{
+//     reject("chappal")
+//    }
+// }, 5000);
+  
+// });
+
+// parentPromise.then(function(resolve){
+//     console.log('resolve:', resolve);
+//     console.log("upload done")
+    
+// });
+// parentPromise.catch(function(err){
+//     console.log('err:', err)
+    
+// })
+
+//build a vaccination registration system
+let queue= ["pablo pandey","babu bhaiyaa","sinchan","jethalal"]
+function Register(){
+let name = document.getElementById('name').value;
+queue.push(name);
+
+let message = `${name} your registration is succesfull`;
+alert(message);
+
+let myPromise= new Promise(function(resolve,reject){
+
+    setTimeout(function(){
+        if(queue[0]===name){
+        resolve(`${name} its your turn now`);
+        }
+
+
+    },5000);
+    });
+    myPromise.then(function(res){
+    console.log('res:', res)
+    
+});
+}
+function startVaccination(){
+    queue.shift();
+    if(queue.length==0){
+        clearInterval(id)
+    }
+    console.log('queue:', queue)
+
+}
+startVaccination();
+
+let id=setInterval(startVaccination,3000);
+
+
+
+
+</script>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #main{
+           display: flex;
+        }
+    </style>
+</head>
+<body>
+  <div id="main">
+      <div>
+          <form onsubmit="Register(event)">
+              <h1>Register</h1>
+              <input type="text" id="name"> <br>
+              <input type="email" id="email"> <br>
+
+              <input type="text" id="username"> <br>
+              <input type="password" id="password"> <br>
+              <input type="number" id="mobile"><br>
+              <input type="text" id="description"><br>
+              <input type="submit">
+          </form>
+      </div>
+      <div>
+        <form>
+            <h1>Login</h1>
+            <input type="text" id="user-login"><br>
+            <input type="password" id="password-login"><br>
+            <input type="submit">
+        </form>
+    </div>
+  </div>  
+</body>
+</html>
+
+<script>
+async function Register(e){
+    try{
+        e.preventDefault();
+        let register_data = {
+            name : document.getElementById("name").value,
+            email : document.getElementById("email").value,
+            password : document.getElementById("password").value,
+            username : document.getElementById("username").value,
+            mobile : document.getElementById("mobile").value,
+            description : document.getElementById("description").value
+        };
+        register_data = JSON.stringify(register_data);
+        console.log("register_data",register_data);
+    }catch(error){
+       console.log("error",error);
+    }
+    let reg_apin
+}
+
+//https://masai-api-mocker.herokuapp.com/
+</script>
+

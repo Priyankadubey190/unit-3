@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+   
+<div id="container"></div>
+
+<div id="sigma">
+    <div id="main"></div>
+    <div id="sec"></div>
+
+</div><br>
+<h1>REPO's URL:-</h1><br>
+<button id="repo_btn">Get User Repo's</button>
+
+<div id="repo"></div>
+    
+</body>
+</html>
+<script type="module">
+    
+    import navber from "./navber.js";
+    import getUser from "./user.js";
+    var response;
+    let container = document.querySelector("#container");
+    container.innerHTML=navber();
+
+    let input = document.querySelector("#search-input");
+    input.addEventListener("keypress",searchUser);
+
+    let btn = document.querySelector("#repo_btn");
+    btn.addEventListener("click",getUserRepo);
+
+    async function searchUser(event){
+        if(event.key === "Enter"){
+            let query = input.value;
+
+             response = await getUser(query);
+            console.log(response);
+            getProfile(response);
+
+            let{avatar_url} = response;
+            document.querySelector("#profile-img").src = avatar_url;
+        }
+
+    }
+
+    function getProfile(elem){
+        document.querySelector("#main").innerHTML="";
+        document.querySelector("#sec").innerHTML="";
+        let img=document.createElement("img");
+        img.src=elem.avatar_url;
+        img.style.height="250px";
+        img.style.width="250px";
+        
+        let h3=document.createElement("h3");
+        h3.textContent=`Name : ${elem.name}`;
+        h3.style.color="white";
+
+        let p1=document.createElement("h4");
+        p1.textContent=`Followers : ${elem.followers}`;
+        p1.style.color="white";
+
+        let h4=document.createElement("h4");
+        h4.textContent=`Profile-Url : ${elem.url}`;
+        h4.style.color="white";
+
+        let p2 = document.createElement("h4");
+        p2.textContent=`Location : ${elem.location}`;
+        p2.style.color="white";
+
+        let p3 = document.createElement("h4");
+        p3.textContent=`Repos-Url : ${elem.repos_url}`;
+        p3.style.color="white";
+
+        let p4 = document.createElement("h4");
+        p4.textContent=`Public_Repos: ${elem.public_repos}`;
+        p4.style.color="white";
+
+      document.querySelector("#main").append(img);
+      document.querySelector("#sec").append(h3,p2,p1,p4,p3,h4);
+
+    }
+
+
+    async function getUserRepo(){
+        let res = await fetch(response.repos_url);
+        let repo_data = await res.json();
+        console.log('repo_data',repo_data);
+        getInfo(repo_data);
+    }
+
+
+    function getInfo(data){
+        document.querySelector("#repo").innerHTML="";
+        data.forEach(function(elem){
+
+            let div=document.createElement("div");
+            div.setAttribute("id","styl");
+
+            let p=document.createElement("h4");
+            p.textContent=elem.html_url;
+            p.style.color="white";
+
+            div.append(p)
+
+            document.querySelector("#repo").append(div);
+
+
+
+
+        });
+    }
+
+
+
+
+
+
+    
+
+</script>

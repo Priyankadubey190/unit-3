@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+     .container{
+        width:50%;
+        margin: auto;
+    }
+    </style>
+   
+</head>
+<body>
+   <div class="container">
+       <h1>Js Datatype Learning App</h1>
+       <div>
+           <button onclick="obj()">Objects</button>
+           <button onclick="arr()">Arrays</button>
+           <button onclick="fun()">Functions</button>
+           <button onclick="str()">Strings</button>
+           <button onclick="num()">Numbers</button>
+           <button onclick="nul()">Null</button>
+           <button onclick="und()">Undefined</button>
+       </div>
+       <div class="dic">
+
+       </div>
+   </div> 
+</body>
+</html>
+<script>
+   var x = document.querySelector(".dic");
+function obj(){
+    x.innerHTML = "";
+var ul = document.createElement("ul");
+var li1 = document.createElement("li");
+li1.textContent = "Object can be of any data type including array, function, nested object,string, number.";
+var li2 = document.createElement("li");
+li2.textContent = "Object are comma-seperated list of key-value pairs wrapped in curly braces.";
+var li3 = document.createElement("li");
+li3.textContent = "Objects are more complex and each object may contain any combination of these primitive data-types as well as reference data-types.";
+var li4 = document.createElement("li");
+li4.textContent = "An object, is a reference data type. Variables that are assigned a reference value are given a reference or a pointer to that value. ";
+var li5 = document.createElement("li");
+li5.textContent = "That reference or pointer points to the location in memory where the object is stored. The variables don’t actually store the value.";
+ul.append(li1,li2,li3,li4,li5);
+x.append(ul);
+}
+
+function arr(){
+    x.innerHTML = "";
+var ul = document.createElement("ul");
+var li1 = document.createElement("li");
+li1.textContent = "In JavaScript, an array is an ordered list of values. Each value is called an element specified by an index.";
+var li2 = document.createElement("li");
+li2.textContent = "First, an array can hold values of different types. For example, you can have an array that stores the number and string, and boolean values.";
+var li3 = document.createElement("li");
+li3.textContent = "Second, the length of an array is dynamically sized and auto-growing. In other words, you don’t need to specify the array size upfront.";
+var li4 = document.createElement("li");
+li4.textContent = "To create an array with some elements, you pass the elements as a comma-separated list into the Array() constructor. ";
+var li5 = document.createElement("li");
+li5.textContent = "It’s important to notice that if you use the array constructor to create an array and pass into a number, you are creating an array with an initial size.";
+ul.append(li1,li2,li3,li4,li5);
+x.append(ul);
+}
+
+function fun(){
+    x.innerHTML = "";
+var ul = document.createElement("ul");
+var li1 = document.createElement("li");
+li1.textContent = "A function definition (also called a function declaration, or function statement) consists of the function keyword";
+var li2 = document.createElement("li");
+li2.textContent = "A list of parameters to the function, enclosed in parentheses and separated by commas.";
+var li3 = document.createElement("li");
+li3.textContent = "The JavaScript statements that define the function, enclosed in curly brackets, {...}.";
+var li4 = document.createElement("li");
+li4.textContent = "If you pass an object (i.e., a non-primitive value, such as Array or a user-defined object) as a parameter and the function changes the object's properties, that change is visible outside the function ";
+var li5 = document.createElement("li");
+li5.textContent = "In addition to defining functions as described here, you can also use the Function constructor to create functions from a string at runtime, much like eval().";
+ul.append(li1,li2,li3,li4,li5);
+x.append(ul);
+}
+
+function str(){
+    x.innerHTML = "";
+var ul = document.createElement("ul");
+var li1 = document.createElement("li");
+li1.textContent = "String is a primitive data type in JavaScript. A string is textual content. It must be enclosed in single or double quotation marks.";
+var li2 = document.createElement("li");
+li2.textContent = "String value can be assigned to a variable using equal to (=) operator.";
+var li3 = document.createElement("li");
+li3.textContent = "A string can also be treated like zero index based character array.";
+var li4 = document.createElement("li");
+li4.textContent = "Since, string is character index, it can be accessed using for loop and for-of loop.";
+var li5 = document.createElement("li");
+li5.textContent = "A string is immutable in JavaScript, it can be concatenated using plus (+) operator in JavaScript.";
+ul.append(li1,li2,li3,li4,li5);
+x.append(ul);
+}
+
+function num(){
+    x.innerHTML = "";
+var ul = document.createElement("ul");
+var li1 = document.createElement("li");
+li1.textContent = "Number is a primitive wrapper object used to represent and manipulate numbers like 37 or -9.25";
+var li2 = document.createElement("li");
+li2.textContent = "The Number constructor contains constants and methods for working with numbers. Values of other types can be converted to numbers using the Number() function.";
+var li3 = document.createElement("li");
+li3.textContent = "The smallest positive representable number—that is, the positive number closest to zero (without actually being zero).";
+var li4 = document.createElement("li");
+li4.textContent = "A number literal like 37 in JavaScript code is a floating-point value, not an integer. ";
+var li5 = document.createElement("li");
+li5.textContent = "When used as a function, Number(value) converts a string or other value to the Number type. If the value can't be converted, it returns NaN.";
+ul.append(li1,li2,li3,li4,li5);
+x.append(ul);
+}
+
+function nul(){
+    x.innerHTML = "";
+var ul = document.createElement("ul");
+var li1 = document.createElement("li");
+li1.textContent = "You can assign null to a variable to denote that currently that variable does not have any value but it will have later on. A null means absence of a value.";
+var li2 = document.createElement("li");
+li2.textContent = "If you try to find DOM element using document.getElelementByID for example, and if element is found then it will return null. So it is recommended to check for null before doing something with that element.";
+var li3 = document.createElement("li");
+li3.textContent = "A null value evaluates to false in conditional expression. So you don't have to use comparison operators like === or !== to check for null values.";
+var li4 = document.createElement("li");
+li4.textContent = "we can assign any primitive or non-primitive type of value to a variable. JavaScript includes two additional primitive type values - null and undefined";
+var li5 = document.createElement("li");
+li5.textContent = "that can be assigned to a variable that has special meaning.";
+ul.append(li1,li2,li3,li4,li5);
+x.append(ul);
+}
+
+function und(){
+    x.innerHTML = "";
+var ul = document.createElement("ul");
+var li1 = document.createElement("li");
+li1.textContent = "Undefined is also a primitive value in JavaScript.";
+var li2 = document.createElement("li");
+li2.textContent = " A variable or an object has an undefined value when no value is assigned before using it.";
+var li3 = document.createElement("li");
+li3.textContent = "So you can say that undefined means lack of value or unknown value.";
+var li4 = document.createElement("li");
+li4.textContent = "You will get undefined value when you call a non-existent property or method of an object.";
+var li5 = document.createElement("li");
+li5.textContent = "If you pass less arguments in function call then, that parameter will have undefined value.";
+ul.append(li1,li2,li3,li4,li5);
+x.append(ul);
+}
+</script>

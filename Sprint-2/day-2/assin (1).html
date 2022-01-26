@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            width:200px;
+            height: 200px;
+            border: 1px solid black;
+
+        }
+        .od{
+            text-align: right;
+        }
+        h2{
+          text-align: center;
+        }
+        #container{
+          width:40%;
+          margin: auto;
+        }
+        #display{
+          width: 50%;
+          margin: auto;
+        }
+    </style>
+</head>
+<body>
+   <h2>Mc Cafe</h2>
+   <div id="container">
+       <label for="">Burger</label>
+       <input type="checkbox" value="burger" id="bug" name="sanket">
+
+       <label for="">Delux Cheese Burger</label>
+       <input type="checkbox" value="db" id="piz" name="sanket">
+       
+       <label for="">Veg Burger </label>
+       <input type="checkbox" value="veg" id="mug" name="sanket">
+       
+       <label for="">Fries</label>
+       <input type="checkbox" value="fries" id="fri" name="sanket">
+       
+       <label for="">Cheese Burger </label>
+       <input type="checkbox" value="cheese" id="che" name="sanket">
+       
+       <button id="order">Order Food</button>
+       
+       
+
+   </div>
+   <div id="display"></div>
+   
+    
+</body>
+</html>
+<script>
+  let x= document.getElementById("order").addEventListener("click",myfood);
+  
+
+  let a="https://www.mcdonalds.com/is/image/content/dam/usa/nfl/nutrition/items/iconic/desktop/t-mcdonalds-Double-Quarter-Pounder-with-Cheese.jpg?$Category_Desktop$"
+  let b="https://www.mcdonalds.com/is/image/content/dam/usa/nfl/nutrition/items/iconic/desktop/t-mcdonalds-qpc-deluxe-burger.jpg?$Category_Desktop$"
+  let c="https://www.mcdonalds.com/is/image/content/dam/usa/nfl/nutrition/items/iconic/desktop/t-mcdonalds-Big-Mac.jpg?$Category_Desktop$"
+  let d="https://www.mcdonalds.com/is/image/content/dam/usa/nfl/nutrition/items/iconic/desktop/t-mcdonalds-fries-small.jpg?$Category_Desktop$"
+  let e="https://www.mcdonalds.com/is/image/content/dam/usa/nfl/nutrition/items/iconic/desktop/t-mcdonalds-Cheeseburger.jpg?$Category_Desktop$"
+  function myfood(){
+
+      document.querySelector("#display").innerHTML="";
+      let id=Math.ceil(Math.random()*100);
+
+      let checkboxes=document.getElementsByName('sanket');
+      for(let i=0;i<checkboxes.length;i++){
+       var s=checkboxes[i].checked == true; 
+
+        let foodPromise = new Promise(function(resolve, reject){
+          
+           if(s==true){
+            resolve("ala");
+           } 
+          else{
+            reject("nahi aal");
+          }
+          
+       })
+        
+       foodPromise.then(function (res){
+          console.log(res);
+          setTimeout(function(){
+            if(checkboxes[i].checked == true){
+              console.log(checkboxes[i].value);
+
+              if(checkboxes[i].value=="burger"){
+                let sanket=document.createElement("img");
+                sanket.src=a;
+                document.querySelector("#display").append(sanket)
+              }
+              if(checkboxes[i].value=="db"){
+                let sanket=document.createElement("img");
+                sanket.src=b;
+                document.querySelector("#display").append(sanket)
+              }
+              if(checkboxes[i].value=="veg"){
+                let sanket=document.createElement("img");
+                sanket.src=c;
+                document.querySelector("#display").append(sanket)
+              }
+              if(checkboxes[i].value=="fries"){
+                let sanket=document.createElement("img");
+                sanket.src=d;
+                document.querySelector("#display").append(sanket)
+              }
+              if(checkboxes[i].value=="cheese"){
+                let sanket=document.createElement("img");
+                sanket.src=e;
+                document.querySelector("#display").append(sanket)
+              }
+
+              
+              
+
+          }
+          },5000)
+          
+
+
+       })
+       foodPromise.catch(function (er){
+           console.log(er);
+       })
+
+       
+         
+      }
+      setTimeout(function(){
+            
+            let orderid=document.createElement("h4")
+            orderid.setAttribute("class","od");
+              orderid.textContent="Order Id -"+id;
+               document.querySelector("#display").append(orderid);
+        },5000)
+  }
+
+
+
+
+
+</script>

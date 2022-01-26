@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moviepedia</title>
+    <style>
+        #container{
+            width: 100%;
+            margin: auto;
+            margin-top: 30px;
+        }
+        #box{
+           width: 20%;
+           margin: auto;
+            
+        }
+        label{
+           margin-left: 39%;
+          
+        }
+        h1{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+     <h1>Moviepedia </h1>
+    <label >Search Movie</label>
+    <input type="search" id="getname">
+    <button onclick="get()">Submit</button>
+
+    <div id="container">
+    </div>
+
+    
+</body>
+</html>
+<script>
+    function get(){
+        document.querySelector("#container").innerHTML="";
+       
+    let name=document.querySelector("#getname").value
+
+    
+    let key="12784a6d";
+    let url=`http://www.omdbapi.com/?t=${name}&apikey=${key}`;
+    console.log(url)
+
+    async function getmovie(){
+        try{
+            let mdb= await fetch(url);
+            let res=await mdb.json();
+            console.log(res) ;
+           if(res.Response=="False"){ 
+              let sanket=document.createElement("img");
+              sanket.src="https://media1.giphy.com/media/haZOqHKz9tTfW/giphy.webp?cid=ecf05e47fxesk9pqhtuj665mdtsxq969a86wt0fgqasbfaje&rid=giphy.webp&ct=g";
+              document.querySelector("#container").append(sanket)
+           }
+           else{
+               if(res.imdbRating > 8.5){
+                let x=`<div id="box">
+            <img src="${res.Poster}" alt="">
+            <h3>(Recommended)</h3>
+            <h2>Title: ${res.Title}</h2>
+            <h3>Actors:${res.Actors}</h3>
+            <h3>IMDb rating:${res.imdbRating}</h3>
+        </div>`;
+
+        document.querySelector("#container").innerHTML=x;
+               }
+               else{
+                let x=`<div id="box">
+            <img src="${res.Poster}" alt="">
+            <h2>Title:${res.Title}</h2>
+            <h3>Actors:${res.Actors}</h3>
+            <h3>IMDb rating:${res.imdbRating}</h3>
+        </div>`;
+        document.querySelector("#container").innerHTML=x;
+
+               }
+           
+        }
+
+           }
+        catch(err){
+            console.log("This error is come to the ",err)
+        }
+    }
+    getmovie();
+
+    }
+
+
+</script>

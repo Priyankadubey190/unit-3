@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        #black {
+            border: 1px solid black;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    
+        <label for="">task name</label>
+        <input type="text" id="name" placeholder="write task here">
+
+        <input type="submit" id="task">
+    
+    <button onclick="togel()">Toggle</button>
+
+    <table>
+        <thead id="black">
+            <th>task name</th>
+            <th>task date</th>
+            <th>task status</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+</body>
+
+</html>
+<script>
+    document.querySelector("#task").addEventListener
+        ("click", display);
+
+    function display(ele) {
+        ele.preventDefault();
+        this.name = document.querySelector("#name").value;
+        this.date = new Date;
+        this.status = "false";
+
+        var row = document.createElement("tr");
+        var td1 = document.createElement("td");
+        td1.textContent = this.name;
+        var td2 = document.createElement("td");
+        td2.textContent = this.date;
+        var td3 = document.createElement("td");
+        td3.textContent = this.status;
+        row.append(td1, td2, td3)
+        document.querySelector("tbody").append(row);
+        console.log(this.name)
+    }
+    </script>

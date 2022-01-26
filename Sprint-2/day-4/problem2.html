@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .gmap_canvas {
+            overflow: hidden;
+            background: none !important;
+            height: 500px;
+            width: 600px;
+        }
+
+
+        .mapouter {
+            position: relative;
+            text-align: right;
+            height: 500px;
+            width: 600px;
+        }
+
+        #conta {
+            display: flex;
+            width: 90%;
+            margin: 5%;
+            justify-content: space-evenly;
+        }
+
+        .mapouter {
+            width: 50%;
+            height: 400px;
+            justify-content: right;
+        }
+
+        h2 {
+            padding: 15px;
+            background-color: teal;
+            border-radius: 5px;
+        }
+
+        #search1 {
+            width: 50%;
+            margin: auto;
+            background-color: lightblue;
+        }
+
+        input {
+            width: 50%;
+            height: 50px;
+            font-size: 25px;
+            margin-left: 20px;
+            border-radius: 10px;
+        }
+
+        #search {
+            width: 200px;
+            height: 50px;
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 25px;
+        }
+
+        label {
+            font-size: 25px;
+            margin-left: 20px;
+        }
+
+        #seven {
+            width: 50%;
+            margin: auto;
+            margin: 2%;
+        }
+
+        #we7 {
+            display: flex;
+            width: 60%;
+            height: 200px;
+            margin: auto;
+            justify-content: space-between;
+        }
+
+        #img1 {
+            width: 60px;
+            height: 60px;
+            margin: auto;
+        }
+
+        #search2 {
+            width: 300px;
+            height: 50px;
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 23px;
+            float: right;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="search1">
+        <label for="">Enter City<input type="text" id="city" placeholder="Enter The City"></label>
+        <button id="search" onclick="getData()">Search</button>
+        <button onclick="sevenDay()" id="search2">Click here to Get 7 Days Weather</button>
+    </div>
+
+
+
+    <div id="conta">
+
+        <div id="weatherData"></div>
+        <div class="mapouter">
+            <div class="gmap_canvas"><iframe width="600" height="500" id="gmap_canvas" frameborder="0" scrolling="no"
+                    marginheight="0" marginwidth="0">
+                </iframe><a href="https://fmovies-online.net">fmovies</a><br>
+                <a href="https://www.embedgooglemap.net">integrate google maps into website</a>
+
+            </div>
+        </div>
+
+    </div>
+    <div id="we7">
+
+    </div>
+</body>
+
+</html>
+<script>
+
+
+    // making async function first
+    let longitude;
+    let latitute
+    async function getData() {
+        // for async function try and catch try for await
+        let res = document.getElementById("city").value; // getting value from user 
+        document.querySelector("iframe").src = `https://maps.google.com/maps?q=${res}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+
+        try {
+
+
+            let wedata = await fetch
+                (`https://api.openweathermap.org/data/2.5/weather?q=${res}&appid=058fc9b03d0c09940d2cba5124b0a926&units=metric`);
+
+            let data = await wedata.json(); // fetching data and json the data readable format
+            //console.log('data : ', data);
+            longitude = data.coord.lat
+            // console.log('longitude: ', longitude);
+            latitute = data.coord.lon
+            //console.log('latitute: ', latitute);
+
+            deep(data)
+        }
+        catch (err) {
+            console.log('er: ', err); // if api breaks this error will occur 
+        }
+    }
+
+    // creating the fuction for appending the data 
+    function deep(weatherData) {
+        document.getElementById("weatherData").innerHTML = "";
+        let temprature = document.createElement("h2");
+        temprature.textContent = "Max Temprature :" + weatherData.main.temp_max + "°"; // getting the data from api in main object; 
+
+        let temprature2 = document.createElement("h2");
+        temprature2.textContent = "Min Temprature :" + weatherData.main.temp_min + "°";
+
+        let wind = document.createElement("h2");
+        wind.textContent = "Wind Speed :" + weatherData.wind.speed;
+
+        let clouds = document.createElement("h2");
+        clouds.textContent = "Clouds :" + weatherData.clouds.all
+
+        let srise = document.createElement("h2");
+        srise.textContent = "Sun Rise :" + weatherData.sys.sunrise;
+
+        let sset = document.createElement("h2");
+        sset.textContent = "Sunset :" + weatherData.sys.sunset;
+
+        document.getElementById("weatherData").append(temprature, temprature2, wind, clouds, srise, sset)
+
+    };
+    async function sevenDay() {
+        try {
+            let sevenData = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${longitude}&lon=${latitute}&appid=058fc9b03d0c09940d2cba5124b0a926&units=metric`);
+            let sdata = await sevenData.json()
+            console.log('sdata: ', sdata.daily);
+            appendWeather(sdata.daily);
+        }
+        catch (erro) {
+            console.log('erro: ', erro);
+
+        }
+    }
+
+    function appendWeather(deep) {
+        document.querySelector("#we7").innerHTML = ""
+        deep.forEach(function (ele) {
+
+            var x = Number(ele.temp.max)
+            let max = document.createElement("h3")
+            max.textContent = ele.temp.max + "°"
+
+            let min = document.createElement("h3")
+            min.textContent = ele.temp.min + "°"
+            var img = document.createElement("img")
+            img.setAttribute("id", "img1")
+            if (x > 28) {
+
+                img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgLIH1aiLgPy6g2Y9Sy520fBuX-uzn7ZMnkw&usqp=CAU"
+            }
+            else if (x > 27 && x <= 28) {
+
+                img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8ilOQkNt4q3zAauFDNCG6W9RLIpHA1kVXLw&usqp=CAU"
+            }
+            else if (x < 27) {
+
+                img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeukrih2WpIlo6RhtWI0FaV4kb9j7_QYZDGQ&usqp=CAU"
+            }
+            var z = document.createElement("div")
+            var a = document.createElement("div")
+            var b = document.createElement("div")
+            // var m = document.createElement("div")
+            z.append(img)
+            a.append(max, min);
+            b.append(z, a)
+            document.getElementById("we7").append(b)
+
+        });
+
+    }
+   //
+   //
+   //
+</script>
